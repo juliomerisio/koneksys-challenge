@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 
+import { useLogger } from '../hooks'
+import Select from './Select/Select'
+
 const Row = styled.div`
   width: 100%;
   display: flex;
@@ -45,6 +48,8 @@ const RowsContainer = styled.div`
 // const rows = [{}]
 
 export const Table = () => {
+  const logger = useLogger('Table')
+
   return (
     <Container>
       <Columns>
@@ -91,6 +96,12 @@ export const Table = () => {
           <span>Heii</span>
         </Row>
         <Row>
+          <Select
+            selectorName='placeholder'
+            data={[{ label: 'test', value: 'test', id: '1' }]}
+            currentData={null}
+            onChange={(value, item) => logger.info(value, item)}
+          />
           <span>Heii</span>
           <span>Heii</span>
           <span>Heii</span>
