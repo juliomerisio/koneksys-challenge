@@ -6,6 +6,7 @@ export const Item = styled.p`
     position: absolute;
     left: -9999px;
   }
+
   [type='radio']:checked + label,
   [type='radio']:not(:checked) + label {
     position: relative;
@@ -23,6 +24,7 @@ export const Item = styled.p`
       color: white;
     }
   }
+
   [type='radio']:checked + label:before,
   [type='radio']:not(:checked) + label:before {
     content: '';

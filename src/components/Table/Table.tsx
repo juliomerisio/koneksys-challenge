@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import { useLogger } from '../hooks'
-import { Radio } from './Form/Radio/Radio'
-import Select from './Form/Select/Select'
+import { useLogger } from '../../hooks'
+import { Radio } from '../Form/Radio/Radio'
+import Select from '../Form/Select/Select'
 
 const Row = styled.div`
   width: 100%;
@@ -105,7 +105,6 @@ export const Table = () => {
           />
           <span>
             <Radio />
-            Heii
           </span>
           <span>Heii</span>
           <span>Heii</span>

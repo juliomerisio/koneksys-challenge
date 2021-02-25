@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Button, Modal } from '../components'
 import { Upload } from '../components/Form/Upload/Upload'
 import { ModalHeader } from '../components/Modal/ModalHeader'
-import { Wizard } from '../components/Wizard'
+import { Wizard } from '../components/Wizard/Wizard'
 
 const Header = styled.header`
   width: 100%;

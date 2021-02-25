@@ -8,7 +8,6 @@ export const Container = styled.div`
   align-items: center;
   border-radius: 8px;
   overflow: hidden;
-
   border: 1px solid #eee;
 
   input {
@@ -31,8 +30,6 @@ export const Container = styled.div`
     transition: all 0.4s;
     cursor: pointer;
     padding: 8px 16px;
-
-    cursor: pointer;
   }
 
   input:hover + label,
