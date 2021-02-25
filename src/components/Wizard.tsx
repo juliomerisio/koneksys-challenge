@@ -14,7 +14,7 @@ const Container = styled.div`
   }
 `
 
-const Step = styled.div<{ isActive: boolean }>`
+const Step = styled.div<{ isActive: boolean; hasError?: boolean }>`
   width: 100%;
   padding: 8px 16px;
   display: flex;
@@ -33,6 +33,12 @@ const Step = styled.div<{ isActive: boolean }>`
       background: ${props.theme.colors.accent};
       color: ${props.theme.colors.white};
     `}
+  ${(props) =>
+    props.hasError &&
+    css`
+      background: ${props.theme.colors.error};
+      color: ${props.theme.colors.white};
+    `}
 
   svg {
     margin-right: 9px;
@@ -44,7 +50,7 @@ const Step = styled.div<{ isActive: boolean }>`
 export const Wizard = () => {
   return (
     <Container>
-      <Step isActive>
+      <Step isActive hasError>
         <Icon icon='FaUpload' />
         <span>Upload data</span>
       </Step>

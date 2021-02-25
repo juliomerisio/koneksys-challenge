@@ -1,9 +1,9 @@
 import { ModalFooter } from 'components/Modal/ModalFooter'
-import { Table } from 'components/Table'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Button, Modal } from '../components'
+import { Upload } from '../components/Form/Upload/Upload'
 import { ModalHeader } from '../components/Modal/ModalHeader'
 import { Wizard } from '../components/Wizard'
 
@@ -44,7 +44,9 @@ export const Dashboard = () => {
           }}
         >
           <label htmlFor='table'>My Team Importer</label>
-          <Table />
+
+          <Upload />
+          {/* <Table /> */}
         </div>
         <ModalFooter />
       </Modal>
