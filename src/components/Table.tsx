@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 import { useLogger } from '../hooks'
-import Select from './Select/Select'
+import { Radio } from './Form/Radio/Radio'
+import Select from './Form/Select/Select'
 
 const Row = styled.div`
   width: 100%;
@@ -102,7 +103,10 @@ export const Table = () => {
             currentData={null}
             onChange={(value, item) => logger.info(value, item)}
           />
-          <span>Heii</span>
+          <span>
+            <Radio />
+            Heii
+          </span>
           <span>Heii</span>
           <span>Heii</span>
           <span>Heii</span>
