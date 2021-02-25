@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { Button, Modal } from '../components'
 import { ModalHeader } from '../components/Modal/ModalHeader'
+import { Wizard } from '../components/Wizard'
 
 const Header = styled.header`
   width: 100%;
@@ -35,6 +36,7 @@ export const Dashboard = () => {
 
       <Modal isOpen={open} onClose={handleClose}>
         <ModalHeader onClose={handleClose} />
+        <Wizard />
         <div
           style={{
             height: '100%',
