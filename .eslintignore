@@ -1,0 +1,10 @@
+node_modules
+dist
+/*.js
+react-app-env.d.ts
+
+/**/*.stories.tsx
+/**/*.d.ts
+
+./**/reportWebVitals.ts
+
