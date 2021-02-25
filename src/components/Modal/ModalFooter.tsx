@@ -7,6 +7,7 @@ const StyledFooter = styled.footer`
   justify-content: flex-end;
   align-items: center;
   padding: 0 32px 40px;
+  margin-top: 8px;
   > button:nth-child(2) {
     margin-left: 16px;
   }

@@ -43,7 +43,7 @@ export const Dashboard = () => {
             padding: '0 32px',
           }}
         >
-          <h3>My Team Importer</h3>
+          <label htmlFor='table'>My Team Importer</label>
           <Table />
         </div>
         <ModalFooter />

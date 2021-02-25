@@ -22,17 +22,18 @@ const Columns = styled.div`
   font-size: 12px;
 
   font-weight: 400;
-  color: #eee;
+  color: ${(props) => props.theme.colors.lightestGray};
 `
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 8px;
 `
 const RowsContainer = styled.div`
   width: 100%;
-  max-height: 220px;
+  max-height: 183px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
