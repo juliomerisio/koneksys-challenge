@@ -1,13 +1,16 @@
-import { Table } from 'components/Table/Table'
-import React, { useState } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { Columns, Table } from 'components/Table/Table'
+import React from 'react'
+import { atom, useRecoilState, useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 
 import { Button, Modal } from '../components'
 import { ModalHeader } from '../components/Modal/ModalHeader'
+import { DashboardDataAtom } from '../components/Wizard/Steps/Complete'
 import { Steps } from '../components/Wizard/Steps/Steps'
-import { CSVAtom } from '../components/Wizard/Steps/UploadData'
-import { Wizard, WizardAtom } from '../components/Wizard/Wizard'
+import { TitleAtom } from '../components/Wizard/Steps/UploadData'
+import { Wizard } from '../components/Wizard/Wizard'
+import { useLogger } from '../hooks'
+import { useResetValues } from './useResetValues'
 
 const Header = styled.header`
   width: 100%;
@@ -25,48 +28,129 @@ const Container = styled.div`
   min-height: 100vh;
 `
 
+export const ModalAtom = atom({
+  key: 'ModalAtom',
+  default: false,
+})
+
 export const Dashboard = () => {
-  const [open, setOpen] = useState(false)
-  const setWizard = useSetRecoilState(WizardAtom)
-  const setCSVAtom = useSetRecoilState(CSVAtom)
-
-  const handleCloseModal = () => {
-    setWizard({
-      active: ['Upload Data'],
-      actual: 'Upload Data',
-      hasError: [],
-    })
-
-    setCSVAtom({
-      data: {
-        fileInfo: {
-          name: '',
-          type: '',
-          size: 0,
-        },
-        data: [],
-      },
-      errors: [],
-    })
-    setOpen(false)
-  }
+  const [open, setOpen] = useRecoilState(ModalAtom)
+  const reset = useResetValues()
+  const title = useRecoilValue(TitleAtom)
 
   return (
     <Container>
       <Header>
-        <h1>My Team</h1>
+        <h1>{title || 'My Team'}</h1>
         <Button variant='accent' onClick={() => setOpen(true)}>
           Import Team
         </Button>
       </Header>
 
-      <Modal isOpen={open} onClose={handleCloseModal}>
-        <ModalHeader onClose={handleCloseModal} />
+      <DashboardTable />
+
+      <Modal isOpen={open} onClose={reset}>
+        <ModalHeader onClose={reset} />
         <Wizard />
         <Steps />
       </Modal>
-
-      <Table isDashboard />
     </Container>
   )
 }
+
+const Wrapper = styled.div`
+  span {
+    max-width: 100px;
+    white-space: unset;
+    overflow: unset;
+    text-overflow: unset;
+  }
+  > div {
+    span:first-child {
+      max-width: 150px;
+    }
+    span:last-child {
+      max-width: 50px;
+    }
+  }
+`
+
+const DashboardTable = () => {
+  const get = useRecoilValue(DashboardDataAtom)
+
+  const logger = useLogger('Dashboard')
+
+  logger.info('Data', get)
+
+  return (
+    <Wrapper>
+      <Table isDashboard rows={get} columns={columns} />
+    </Wrapper>
+  )
+}
+
+const columns: Columns = [
+  {
+    key: 'Player Name',
+    label: 'Player',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: '#',
+    label: '#',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'Pos',
+    label: 'pos',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Height',
+    label: 'Height',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Weight',
+    label: 'Weight',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Experience',
+    label: 'Experience',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Age',
+    label: 'Age',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Base Salary',
+    label: 'Salary',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'College',
+    label: 'College',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+  {
+    key: 'Status',
+    label: 'Status',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+]

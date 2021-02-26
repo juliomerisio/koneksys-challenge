@@ -1,8 +1,11 @@
 import React from 'react'
-import { selector, useRecoilValue } from 'recoil'
+import { atom, selector, useRecoilValue, useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { useLogger } from '../../../hooks'
+import { CSVData } from '../../../hooks/useParseCSV'
+import { ModalAtom } from '../../../pages/Dashboard'
+import { useResetValues } from '../../../pages/useResetValues'
 import { Button } from '../../Button'
 import { ModalFooter } from '../../Modal/ModalFooter'
 import { FavoriteAtom } from './Favorite'
@@ -70,13 +73,32 @@ const selectorCSV = selector({
   },
 })
 
+export const DashboardDataAtom = atom<CSVData['data']>({
+  key: 'DashboardDataAtom',
+  default: [],
+})
+
 export const Complete = () => {
   const logger = useLogger('Complete')
   const get = useRecoilValue(selectorCSV)
+  const reset = useResetValues()
+
+  const setModalIsOpen = useSetRecoilState(ModalAtom)
+
+  const getCSVAtom = useRecoilValue(CSVAtom)
+
+  const setDashboardData = useSetRecoilState(DashboardDataAtom)
+
   const { onPrevious } = useWizardSteps({
     previous: 'Favorite',
     next: 'Complete',
   })
+
+  const handleFinish = () => {
+    setDashboardData(getCSVAtom.data.data)
+    setModalIsOpen(false)
+    reset()
+  }
 
   logger.info('Data', get)
 
@@ -119,7 +141,9 @@ export const Complete = () => {
         <Button variant='border' onClick={onPrevious}>
           Back
         </Button>
-        <Button variant='accent'>Continue</Button>
+        <Button variant='accent' onClick={handleFinish}>
+          Continue
+        </Button>
       </ModalFooter>
     </>
   )

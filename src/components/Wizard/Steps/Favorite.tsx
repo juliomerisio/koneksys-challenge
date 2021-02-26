@@ -39,7 +39,7 @@ export const Favorite = () => {
         <Button variant='border' onClick={onPrevious}>
           Back
         </Button>
-        <Button variant='accent' onClick={onNext}>
+        <Button variant='accent' onClick={onNext} disabled={!getFavorite}>
           Continue
         </Button>
       </ModalFooter>
