@@ -4,7 +4,7 @@ import React from 'react'
 
 import { nonEmpty } from '../utils/nonEmpty'
 
-type CSVRowData = Array<Record<string, unknown>>
+type CSVRowData = Record<string, string>
 
 interface FileInfo {
   name: string

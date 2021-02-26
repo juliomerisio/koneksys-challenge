@@ -10,6 +10,19 @@ export const Row = styled.div`
   border: 1px solid #eee;
   font-size: 12px;
   border-radius: 8px;
+  span {
+    padding: 0 10px;
+    max-width: 80px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  span:last-child {
+    max-width: unset;
+
+    overflow: visible;
+  }
 `
 
 export const Columns = styled.div`
@@ -23,9 +36,19 @@ export const Columns = styled.div`
 
   font-weight: 400;
   color: ${(props) => props.theme.colors.lightestGray};
+
   span {
-    display: flex;
-    justify-content: center;
+    padding: 0 10px;
+    max-width: 80px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  span:last-child {
+    max-width: unset;
+
+    overflow: visible;
   }
 `
 

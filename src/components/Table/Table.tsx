@@ -53,56 +53,82 @@ export type Columns = Array<Column>
 
 const columnsExample: Columns = [
   {
-    key: 'player',
+    key: 'Player Name',
     label: 'Player',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'number',
+    key: '#',
     label: '#',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'pos',
+    key: 'Pos',
     label: 'pos',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'college',
+    key: 'College',
     label: 'College',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'status',
+    key: 'Status',
     label: 'Status',
     render: (value) => value,
-    renderRow: (_value) => (
+    renderRow: (value, obj) => (
       <Select
         selectorName='status'
-        onChange={() => true}
+        onChange={(name, v) => {
+          if (typeof obj?.onChange === 'function') {
+            obj?.onChange(v)
+          }
+        }}
         data={[
-          { id: 'one', label: 'Hello', value: 'hello' },
-          { id: 'two', label: 'Hey', value: 'hey' },
+          {
+            id: 'Active',
+            label: 'Active',
+            value: String(obj?.['Player Name'] ?? ''),
+          },
+          {
+            id: 'Injured',
+            label: 'Injured',
+            value: String(obj?.['Player Name'] ?? ''),
+          },
+          {
+            id: 'Practice',
+            label: 'Practice',
+            value: String(obj?.['Player Name'] ?? ''),
+          },
+          {
+            id: 'Suspended',
+            label: 'Suspended',
+            value: String(obj?.['Player Name'] ?? ''),
+          },
         ]}
         selectPlaceholder='Status'
-        currentData={null}
+        currentData={{
+          id: typeof obj?.Status === 'string' ? obj.Status : '',
+          label: typeof value === 'string' ? value : '',
+          value: typeof value === 'string' ? value : '',
+        }}
       />
     ),
   },
 ]
 
-type Row = { [key: string]: string }
+type Row = { [key: string]: any } //eslint-disable-line
 export type Rows = Array<Row>
 
-const rowsExample = [
+const rowsExample: Rows = [
   {
     player: 'player',
     number: '#',

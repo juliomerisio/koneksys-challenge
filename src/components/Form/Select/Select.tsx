@@ -13,7 +13,7 @@ import {
   Selected,
 } from './Select.styled'
 
-type SelectData = {
+export type SelectData = {
   label: string
   value: string
   id: string
@@ -22,7 +22,7 @@ type SelectData = {
 interface Props {
   selectorName: string
   data: SelectData[]
-  currentData: SelectData | null
+  currentData: SelectData
   selectPlaceholder?: string
   onChange: (selectorName: string, item: SelectData) => void
 }
@@ -30,7 +30,11 @@ interface Props {
 const SelectField: React.FC<Props> = ({
   selectorName,
   data = [],
-  currentData = {},
+  currentData = {
+    label: '',
+    value: '',
+    id: '',
+  },
   selectPlaceholder,
   onChange,
 }) => {
@@ -38,6 +42,7 @@ const SelectField: React.FC<Props> = ({
   const [isSearch, setIsSearch] = useState(false)
   const [search, setSearch] = useState<SelectData[]>([])
   const selectRef = useRef<HTMLDivElement | null>(null)
+  const [current, setCurrent] = useState<SelectData>(currentData)
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (selectRef.current) {
@@ -102,8 +107,9 @@ const SelectField: React.FC<Props> = ({
               </Search>
             ) : (
               <Selected>
-                {selectPlaceholder}
-                <span>{currentData?.label}</span>
+                {!current && selectPlaceholder}
+                <span>{current?.label}</span>
+
                 <FiChevronDown size={18} />
               </Selected>
             )}
@@ -119,6 +125,7 @@ const SelectField: React.FC<Props> = ({
                 <li key={item.id}>
                   <Button
                     onClick={() => {
+                      setCurrent(item)
                       onChange(selectorName, item)
                       setIsOpen(false)
                     }}
