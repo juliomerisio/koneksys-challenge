@@ -22,18 +22,3 @@ export const Radio = () => {
     </form>
   )
 }
-
-// <label htmlFor='opt-favorite'>
-//   <input
-//     type='radio'
-//     id='opt-favorite'
-//     name='favorite'
-//     onChange={(event) => console.log(event.target.value, '')}
-//   />
-//
-//   <ContainerItem>
-//     <Checkmark>
-//       <FiCheck />
-//     </Checkmark>
-//   </ContainerItem>
-// </label>

@@ -11,6 +11,9 @@ const variants = {
       backgroundColor: 'error',
       color: 'white',
     },
+    default: {
+      backgroundColor: 'lightGray',
+    },
   },
 }
 
@@ -35,3 +38,7 @@ export const Step = styled.div<{ variant: keyof typeof variants['variants'] }>`
 
   ${variant(variants)}
 `
+
+Step.defaultProps = {
+  variant: 'default',
+}

@@ -1,10 +1,9 @@
-import { ModalFooter } from 'components/Modal/ModalFooter'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Button, Modal } from '../components'
-import { Upload } from '../components/Form/Upload/Upload'
 import { ModalHeader } from '../components/Modal/ModalHeader'
+import { Steps } from '../components/Wizard/Steps/Steps'
 import { Wizard } from '../components/Wizard/Wizard'
 
 const Header = styled.header`
@@ -37,18 +36,7 @@ export const Dashboard = () => {
       <Modal isOpen={open} onClose={handleClose}>
         <ModalHeader onClose={handleClose} />
         <Wizard />
-        <div
-          style={{
-            height: '100%',
-            padding: '0 32px',
-          }}
-        >
-          <label htmlFor='table'>My Team Importer</label>
-
-          <Upload />
-          {/* <Table /> */}
-        </div>
-        <ModalFooter />
+        <Steps />
       </Modal>
     </Container>
   )

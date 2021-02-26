@@ -1,4 +1,3 @@
-import { Button } from 'components'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -15,11 +14,6 @@ const StyledFooter = styled.footer`
 
 interface ModalFooterProps {}
 
-export const ModalFooter: React.FC<ModalFooterProps> = () => {
-  return (
-    <StyledFooter>
-      <Button variant='border'>Back</Button>
-      <Button variant='accent'>Continue</Button>
-    </StyledFooter>
-  )
+export const ModalFooter: React.FC<ModalFooterProps> = ({ children }) => {
+  return <StyledFooter>{children}</StyledFooter>
 }
