@@ -3,6 +3,7 @@ import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { CSVData } from '../../../hooks/useParseCSV'
+import { debounce } from '../../../utils/debounce'
 import { Button } from '../../Button'
 import { TextField } from '../../Form/TextField/TextField'
 import { Upload } from '../../Form/Upload/Upload'
@@ -18,6 +19,26 @@ export const Container = styled.div`
     margin-top: 17px;
     font-size: 14px;
     font-weight: 400;
+  }
+  > span {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+
+    span {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 8px;
+    }
+    svg {
+      color: white;
+    }
   }
 `
 
@@ -41,6 +62,11 @@ export const CSVAtom = atom<CSVAtomType>({
   },
 })
 
+export const TitleAtom = atom<string>({
+  key: 'TitleAtom',
+  default: '',
+})
+
 export const UploadData = () => {
   const { onNext } = useWizardSteps({
     previous: 'Upload Data',
@@ -48,6 +74,8 @@ export const UploadData = () => {
   })
 
   const [get, set] = useRecoilState(CSVAtom)
+
+  const [getTitle, setTitle] = useRecoilState(TitleAtom)
 
   const setWizard = useSetRecoilState(WizardAtom)
 
@@ -76,6 +104,8 @@ export const UploadData = () => {
 
   const hasData = get.data.data?.length > 0
 
+  const hasTitle = getTitle.length
+
   return (
     <>
       <Container>
@@ -83,8 +113,10 @@ export const UploadData = () => {
           <>
             <TextField defaultValue={get.data.fileInfo.name} aria-disabled />
             <span>
-              <Icon icon='FaTimes' />
-              <strong>Missing Value</strong>
+              <span>
+                <Icon icon='FaTimes' size={10} />
+              </span>
+              <small>Missing Value</small>
             </span>
             <p>
               One of records has a missing value for one of the columns. Please
@@ -95,8 +127,25 @@ export const UploadData = () => {
 
         {!hasErrors && hasData && (
           <>
-            <TextField defaultValue={get.data.fileInfo.name} aria-disabled />
-            <TextField aria-disabled />
+            <TextField
+              defaultValue={get.data.fileInfo.name}
+              aria-disabled
+              label='Upload Data'
+            />
+
+            <TextField
+              aria-disabled
+              label='Team Name'
+              defaultValue={getTitle}
+              onChange={(event) => {
+                const { value } = event.target
+                debounce({
+                  action: setTitle,
+                  value,
+                  delay: 200,
+                })
+              }}
+            />
           </>
         )}
 
@@ -120,7 +169,7 @@ export const UploadData = () => {
         ) : (
           <Button
             onClick={onNext}
-            disabled={get.errors?.length > 0 || get.data.data.length === 0}
+            disabled={(hasErrors && !hasData) || !hasTitle}
           >
             Continue
           </Button>

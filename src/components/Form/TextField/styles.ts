@@ -6,6 +6,7 @@ export const Label = styled.label`
   position: relative;
   font-weight: bold;
   width: 100%;
+  margin-bottom: 33px;
 
   > input {
     background-color: ${(props) => props.theme.colors.white};
@@ -14,5 +15,10 @@ export const Label = styled.label`
     padding: 10px;
     border-radius: 4px;
     transition: 180ms ease-in-out;
+    font-weight: 400;
+  }
+  span {
+    margin-bottom: 23px;
+    font-weight: 500;
   }
 `
