@@ -1,24 +1,21 @@
+import React, { InputHTMLAttributes } from 'react'
 import { FiCheck } from 'react-icons/fi'
 
 import { Item } from './Radio.styled'
 
-export const Radio = () => {
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
+}
+
+export const Radio: React.FC<RadioProps> = (props) => {
+  const { id } = props
+
   return (
-    <form>
-      <Item>
-        <input type='radio' id='test2' name='radio-group' />
-        <label htmlFor='test2'>
-          Apple
-          <FiCheck />
-        </label>
-      </Item>
-      <Item>
-        <input type='radio' id='test1' name='radio-group' />
-        <label htmlFor='test1'>
-          Banana
-          <FiCheck />
-        </label>
-      </Item>
-    </form>
+    <Item>
+      <input type='radio' name='radio-group' {...props} />
+      <label htmlFor={id}>
+        <FiCheck />
+      </label>
+    </Item>
   )
 }

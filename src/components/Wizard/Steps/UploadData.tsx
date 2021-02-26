@@ -15,11 +15,6 @@ import { useWizardSteps } from './useWizardSteps'
 export const Container = styled.div`
   height: 100%;
   padding: 0 32px;
-  p {
-    margin-top: 17px;
-    font-size: 14px;
-    font-weight: 400;
-  }
   > span {
     display: flex;
     align-items: center;
@@ -40,6 +35,12 @@ export const Container = styled.div`
       color: white;
     }
   }
+`
+
+const ErrorMessage = styled.p`
+  margin-top: 17px;
+  font-size: 14px;
+  font-weight: 400;
 `
 
 interface CSVAtomType {
@@ -118,10 +119,10 @@ export const UploadData = () => {
               </span>
               <small>Missing Value</small>
             </span>
-            <p>
+            <ErrorMessage>
               One of records has a missing value for one of the columns. Please
               ensure your .csv has complete information.
-            </p>
+            </ErrorMessage>
           </>
         )}
 

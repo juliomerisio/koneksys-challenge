@@ -47,7 +47,9 @@ type Column = {
   renderRow: (value: string | ReactElement, obj: Record<string, unknown>) => any //eslint-disable-line
 }
 
-const columnsExample: Array<Column> = [
+export type Columns = Array<Column>
+
+const columnsExample: Columns = [
   {
     key: 'player',
     label: 'Player',
@@ -96,8 +98,9 @@ const columnsExample: Array<Column> = [
 ]
 
 type Row = { [key: string]: string }
+export type Rows = Array<Row>
 
-const rowsExample: Array<Row> = [
+const rowsExample = [
   {
     player: 'player',
     number: '#',

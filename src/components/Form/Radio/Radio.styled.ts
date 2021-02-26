@@ -10,16 +10,17 @@ export const Item = styled.p`
   [type='radio']:checked + label,
   [type='radio']:not(:checked) + label {
     position: relative;
-    padding-left: 28px;
+    //padding-left: 28px;
     cursor: pointer;
-    line-height: 20px;
+    //line-height: 20px;
     display: inline-block;
     color: #666;
     svg {
       opacity: 0;
       z-index: 2;
       position: absolute;
-      top: 4px;
+      //top: 4px;
+      top: -9px;
       left: 3px;
       color: white;
     }
@@ -30,7 +31,8 @@ export const Item = styled.p`
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
+    top: -13px;
+
     width: 18px;
     height: 18px;
     border: 1px solid #ddd;
@@ -45,7 +47,9 @@ export const Item = styled.p`
     height: 18px;
     background: dodgerblue;
     position: absolute;
-    top: 1px;
+    //top: 1px;
+
+    top: -12px;
     left: 1px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;

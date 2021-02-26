@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { Button, Modal } from '../components'
 import { ModalHeader } from '../components/Modal/ModalHeader'
 import { Steps } from '../components/Wizard/Steps/Steps'
-import { Wizard } from '../components/Wizard/Wizard'
+import { CSVAtom } from '../components/Wizard/Steps/UploadData'
+import { Wizard, WizardAtom } from '../components/Wizard/Wizard'
 
 const Header = styled.header`
   width: 100%;
@@ -22,7 +24,29 @@ const Container = styled.div`
 
 export const Dashboard = () => {
   const [open, setOpen] = useState(false)
-  const handleClose = () => setOpen(false)
+  const setWizard = useSetRecoilState(WizardAtom)
+  const setCSVAtom = useSetRecoilState(CSVAtom)
+
+  const handleCloseModal = () => {
+    setWizard({
+      active: ['Upload Data'],
+      actual: 'Upload Data',
+      hasError: [],
+    })
+
+    setCSVAtom({
+      data: {
+        fileInfo: {
+          name: '',
+          type: '',
+          size: 0,
+        },
+        data: [],
+      },
+      errors: [],
+    })
+    setOpen(false)
+  }
 
   return (
     <Container>
@@ -33,8 +57,8 @@ export const Dashboard = () => {
         </Button>
       </Header>
 
-      <Modal isOpen={open} onClose={handleClose}>
-        <ModalHeader onClose={handleClose} />
+      <Modal isOpen={open} onClose={handleCloseModal}>
+        <ModalHeader onClose={handleCloseModal} />
         <Wizard />
         <Steps />
       </Modal>
