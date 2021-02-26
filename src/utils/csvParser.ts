@@ -62,13 +62,10 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
 
         const findErrors = parser
           .map(nonEmpty)
-          .find(
-            (el: { errors: Array<string>; elements: CSVData }) =>
-              el.errors.length > 0
-          )
+          .find((errors: Array<string>) => errors.length > 0)
 
         onSuccess(parser)
-        onError(findErrors?.errors)
+        onError(findErrors)
       }
     }
 

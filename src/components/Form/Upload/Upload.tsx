@@ -6,8 +6,8 @@ export const Upload = () => {
   const logger = useLogger('Upload')
 
   const onParseCSV = useParseCSV({
-    onError: (data) => logger.info('data', data),
-    onSuccess: (errors) => logger.info('errors', errors),
+    onSuccess: (data) => logger.info('data', data),
+    onError: (errors) => logger.info('errors', errors),
   })
 
   return (
