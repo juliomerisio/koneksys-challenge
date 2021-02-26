@@ -26,7 +26,7 @@ interface CSVAtomType {
   errors: string[]
 }
 
-const CSVAtom = atom<CSVAtomType>({
+export const CSVAtom = atom<CSVAtomType>({
   key: 'CSVAtom',
   default: {
     data: {
