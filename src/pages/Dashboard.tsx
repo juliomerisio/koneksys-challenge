@@ -84,7 +84,9 @@ const DashboardTable = () => {
 
   return (
     <Wrapper>
-      <Table isDashboard rows={get} columns={columns} />
+      {get.length > 0 ? (
+        <Table isDashboard rows={get} columns={columns} />
+      ) : null}
     </Wrapper>
   )
 }
