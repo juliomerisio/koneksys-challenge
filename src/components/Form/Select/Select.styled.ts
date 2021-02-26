@@ -6,7 +6,6 @@ export const Loader = styled.span`
 `
 
 export const Current = styled.button<{ isActive: boolean }>`
-  width: inherit;
   border-radius: 8px;
   transition: color 0.25s, background-color 0.25s;
   svg {
@@ -31,8 +30,13 @@ export const Search = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border: 1px solid #eee;
+  max-width: 140px;
+  width: 100%;
+
+  padding: 4px 16px;
+
   input {
+    width: 100%;
     border: 0;
     background-color: transparent;
 
@@ -46,9 +50,10 @@ export const Selected = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #eee;
-  svg {
-  }
+
+  padding: 4px 16px;
+  border-left: 1px solid ${(props) => props.theme.colors.borderGray};
+
   span:last-of-type {
     white-space: nowrap;
     overflow: hidden;
@@ -60,19 +65,23 @@ export const List = styled.ul<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 110px;
+  top: 50px;
   left: 0;
   z-index: 15;
-  padding-bottom: 0.5rem;
+  padding: 11px 16px;
   width: inherit;
   max-height: 410px;
   overflow: hidden;
   transition: top 1s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid ${(props) => props.theme.colors.accent};
+  border-radius: 0 8px 8px 8px;
+
+  background: white;
 
   ${(props) =>
     props.isOpen &&
     css`
-      top: 58px;
+      top: 21px;
     `}
   li {
     width: 100%;
@@ -98,8 +107,11 @@ export const Container = styled.div<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
+  min-width: 140px;
   max-width: 267px;
   width: 100%;
+
+  border-left: 1px solid ${(props) => props.theme.colors.borderGray};
   ${List} {
     visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
   }

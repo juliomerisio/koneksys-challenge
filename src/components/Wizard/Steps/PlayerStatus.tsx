@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Button } from '../../Button'
 import { ModalFooter } from '../../Modal/ModalFooter'
+import { Table } from '../../Table/Table'
 import { Container } from './UploadData'
 import { useWizardSteps } from './useWizardSteps'
 
@@ -15,6 +16,7 @@ export const PlayerStatus = () => {
     <>
       <Container>
         <label htmlFor='table'>Player Status</label>
+        <Table />
       </Container>
 
       <ModalFooter>

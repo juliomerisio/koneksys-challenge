@@ -1,117 +1,129 @@
-import styled from 'styled-components'
+import React, { ReactElement } from 'react'
 
-import { useLogger } from '../../hooks'
-import { Radio } from '../Form/Radio/Radio'
+import { uuid } from '../../utils/uuid'
 import Select from '../Form/Select/Select'
+import { Columns, Container, Row, RowsContainer } from './Table.styled'
 
-const Row = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border: 1px solid #eee;
-  font-size: 12px;
-  border-radius: 8px;
-`
+interface TableProps {
+  columns?: Array<Column>
+  rows?: Array<Row>
+}
 
-const Columns = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  font-size: 12px;
-
-  font-weight: 400;
-  color: ${(props) => props.theme.colors.lightestGray};
-`
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-`
-const RowsContainer = styled.div`
-  width: 100%;
-  max-height: 183px;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`
-// const columns = [{}]
-// const rows = [{}]
-
-export const Table = () => {
-  const logger = useLogger('Table')
-
+export const Table: React.FC<TableProps> = ({
+  columns = columnsExample,
+  rows = rowsExample,
+}) => {
   return (
     <Container>
       <Columns>
-        <span>Heii</span>
-        <span>Heii</span>
-        <span>Heii</span>
-        <span>Heii</span>
-        <span>Heii</span>
+        {columns.map((column) => (
+          <span key={column.key}>{column.render(column.label, column)}</span>
+        ))}
       </Columns>
       <RowsContainer>
-        <Row>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
-        <Row>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
-        <Row>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
-        <Row>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
-        <Row>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
-        <Row>
-          <Select
-            selectorName='placeholder'
-            data={[{ label: 'test', value: 'test', id: '1' }]}
-            currentData={null}
-            onChange={(value, item) => logger.info(value, item)}
-          />
-          <span>
-            <Radio />
-          </span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-          <span>Heii</span>
-        </Row>
+        {rows?.map((row) => (
+          <Row key={row?.key}>
+            {columns?.map((column, columnIndex) => {
+              const index = columns[columnIndex].key
+
+              return (
+                <span key={uuid()}>
+                  {column?.renderRow && column?.renderRow(row[index], row)}
+                </span>
+              )
+            })}
+          </Row>
+        ))}
       </RowsContainer>
     </Container>
   )
 }
+
+type Column = {
+  key: string
+  label: string
+  render: (value: string | ReactElement, obj: Record<string, unknown>) => any //eslint-disable-line
+
+  renderRow: (value: string | ReactElement, obj: Record<string, unknown>) => any //eslint-disable-line
+}
+
+const columnsExample: Array<Column> = [
+  {
+    key: 'player',
+    label: 'Player',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'number',
+    label: '#',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'pos',
+    label: 'pos',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'college',
+    label: 'College',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
+
+  {
+    key: 'status',
+    label: 'Status',
+    render: (value) => value,
+    renderRow: (_value) => (
+      <Select
+        selectorName='status'
+        onChange={() => true}
+        data={[
+          { id: 'one', label: 'Hello', value: 'hello' },
+          { id: 'two', label: 'Hey', value: 'hey' },
+        ]}
+        selectPlaceholder='Status'
+        currentData={null}
+      />
+    ),
+  },
+]
+
+type Row = { [key: string]: string }
+
+const rowsExample: Array<Row> = [
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+]
