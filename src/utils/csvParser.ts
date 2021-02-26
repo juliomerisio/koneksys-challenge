@@ -4,10 +4,21 @@ import React from 'react'
 
 import { nonEmpty } from './nonEmpty'
 
-type CSVData = Array<Record<string, unknown>>
+type CSVRowData = Array<Record<string, unknown>>
+
+interface FileInfo {
+  name: string
+  size: number
+  type: string
+}
+
+type CSVData = {
+  data: Array<CSVRowData>
+  fileInfo: FileInfo
+}
 
 interface UseParseCSVProps {
-  onSuccess: (data: Array<CSVData>) => void
+  onSuccess: (data: CSVData) => void
   onError: (errors: Array<string>) => void
 }
 
@@ -22,7 +33,7 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
 
     const file = files[0]
 
-    const fileInfo = {
+    const fileInfo: FileInfo = {
       name: file.name,
       size: file.size,
       type: file.type,
@@ -49,7 +60,7 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
         if (!columns) return
 
         const indexNextedValues = (
-          acc: Array<CSVData>,
+          acc: Array<CSVRowData>,
           value: string,
           index: number
         ) => mergeAll([acc, { [columns[index]]: value }])
@@ -64,7 +75,7 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
           .map(nonEmpty)
           .find((errors: Array<string>) => errors.length > 0)
 
-        onSuccess(parser)
+        onSuccess({ data: parser, fileInfo })
         onError(findErrors)
       }
     }
