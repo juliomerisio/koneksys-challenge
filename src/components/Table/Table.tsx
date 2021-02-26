@@ -7,11 +7,13 @@ import { Columns, Container, Row, RowsContainer } from './Table.styled'
 interface TableProps {
   columns?: Array<Column>
   rows?: Array<Row>
+  isDashboard?: boolean
 }
 
 export const Table: React.FC<TableProps> = ({
   columns = columnsExample,
   rows = rowsExample,
+  isDashboard = false,
 }) => {
   return (
     <Container>
@@ -20,7 +22,7 @@ export const Table: React.FC<TableProps> = ({
           <span key={column.key}>{column.render(column.label, column)}</span>
         ))}
       </Columns>
-      <RowsContainer>
+      <RowsContainer isDashboard={isDashboard}>
         {rows?.map((row) => (
           <Row key={row?.key}>
             {columns?.map((column, columnIndex) => {
@@ -101,6 +103,41 @@ type Row = { [key: string]: string }
 export type Rows = Array<Row>
 
 const rowsExample = [
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
+  {
+    player: 'player',
+    number: '#',
+    pos: 'pos',
+    college: 'college',
+    status: 'status',
+  },
   {
     player: 'player',
     number: '#',

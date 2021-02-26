@@ -1,3 +1,4 @@
+import { Table } from 'components/Table/Table'
 import React, { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
@@ -13,6 +14,7 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 `
 
 const Container = styled.div`
@@ -20,6 +22,7 @@ const Container = styled.div`
   margin: 0 auto;
   width: 100%;
   padding: 32px;
+  min-height: 100vh;
 `
 
 export const Dashboard = () => {
@@ -62,6 +65,8 @@ export const Dashboard = () => {
         <Wizard />
         <Steps />
       </Modal>
+
+      <Table isDashboard />
     </Container>
   )
 }

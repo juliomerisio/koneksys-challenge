@@ -112,7 +112,10 @@ export const UploadData = () => {
       <Container>
         {hasErrors && (
           <>
-            <TextField defaultValue={get.data.fileInfo.name} aria-disabled />
+            <TextField
+              defaultValue={get.data.fileInfo.name || 'File format Invalid'}
+              aria-disabled
+            />
             <span>
               <span>
                 <Icon icon='FaTimes' size={10} />

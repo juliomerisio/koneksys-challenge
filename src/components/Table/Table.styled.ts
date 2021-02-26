@@ -35,9 +35,9 @@ export const Container = styled.div`
   flex-direction: column;
   margin-top: 8px;
 `
-export const RowsContainer = styled.div`
+export const RowsContainer = styled.div<{ isDashboard: boolean }>`
   width: 100%;
-  max-height: 183px;
+  max-height: ${(props) => (props.isDashboard ? '540px' : '183px')};
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
