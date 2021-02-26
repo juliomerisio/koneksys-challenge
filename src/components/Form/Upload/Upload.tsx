@@ -1,5 +1,5 @@
-import { useLogger } from '../../../hooks'
-import { useParseCSV } from '../../../utils/csvParser'
+import { useLogger, useParseCSV } from 'hooks'
+
 import { Container } from './Upload.styled'
 
 export const Upload = () => {
