@@ -115,7 +115,7 @@ export const UploadData = () => {
     <>
       <Container>
         {hasErrors && (
-          <Section>
+          <>
             <TextField
               defaultValue={get.data.fileInfo.name || 'File format Invalid'}
               aria-disabled
@@ -130,7 +130,7 @@ export const UploadData = () => {
               One of records has a missing value for one of the columns. Please
               ensure your .csv has complete information.
             </ErrorMessage>
-          </Section>
+          </>
         )}
 
         {!hasErrors && hasData && (
