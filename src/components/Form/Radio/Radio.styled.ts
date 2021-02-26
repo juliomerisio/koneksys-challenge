@@ -45,7 +45,7 @@ export const Item = styled.p`
     content: '';
     width: 18px;
     height: 18px;
-    background: dodgerblue;
+    background: ${(props) => props.theme.colors.accent};
     position: absolute;
     //top: 1px;
 
