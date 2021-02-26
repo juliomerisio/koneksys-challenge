@@ -1,9 +1,12 @@
 import React from 'react'
+import { selector, useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 
+import { useLogger } from '../../../hooks'
 import { Button } from '../../Button'
 import { ModalFooter } from '../../Modal/ModalFooter'
-import { Container } from './UploadData'
+import { FavoriteAtom } from './Favorite'
+import { Container, CSVAtom, TitleAtom } from './UploadData'
 import { useWizardSteps } from './useWizardSteps'
 
 const Review = styled.div`
@@ -32,11 +35,50 @@ const Review = styled.div`
   }
 `
 
+const selectorCSV = selector({
+  key: 'selectorCSV',
+  get: ({ get }) => {
+    const csvJSON = get(CSVAtom)
+    const name = get(TitleAtom)
+    const favorite = get(FavoriteAtom)
+
+    const active = csvJSON.data.data.filter(
+      (player) => player?.Status === 'Active'
+    )?.length
+
+    const injured = csvJSON.data.data.filter(
+      (player) => player?.Status === 'Injured'
+    )?.length
+
+    const practice = csvJSON.data.data.filter(
+      (player) => player?.Status === 'Practice'
+    )?.length
+
+    const suspended = csvJSON.data.data.filter(
+      (player) => player?.Status === 'Suspended'
+    )?.length
+
+    return {
+      suspended,
+      practice,
+      injured,
+      active,
+      name,
+      fileName: csvJSON.data.fileInfo.name,
+      favorite,
+    }
+  },
+})
+
 export const Complete = () => {
+  const logger = useLogger('Complete')
+  const get = useRecoilValue(selectorCSV)
   const { onPrevious } = useWizardSteps({
     previous: 'Favorite',
     next: 'Complete',
   })
+
+  logger.info('Data', get)
 
   return (
     <>
@@ -46,28 +88,28 @@ export const Complete = () => {
         <Review>
           <div>
             <span>
-              <small>Data</small> <strong>hello</strong>
+              <small>Data</small> <strong>{get.fileName}</strong>
             </span>
             <span>
-              <small>Team</small> <strong>hello</strong>
+              <small>Team</small> <strong>{get.name}</strong>
             </span>
             <span>
-              <small>Favorite Player</small> <strong>hello</strong>
+              <small>Favorite Player</small> <strong>{get.favorite}</strong>
             </span>
           </div>
 
           <div>
             <span>
-              <small>Active</small> <strong>hello</strong>
+              <small>Active</small> <strong>{get.active}</strong>
             </span>
             <span>
-              <small>Injured</small> <strong>hello</strong>
+              <small>Injured</small> <strong>{get.injured}</strong>
             </span>
             <span>
-              <small>Practice Squad</small> <strong>hello</strong>
+              <small>Practice Squad</small> <strong>{get.practice}</strong>
             </span>
             <span>
-              <small>Suspended</small> <strong>hello</strong>
+              <small>Suspended</small> <strong>{get.suspended}</strong>
             </span>
           </div>
         </Review>

@@ -1,59 +1,37 @@
 import React from 'react'
+import { atom, useRecoilState, useRecoilValue } from 'recoil'
 
 import { uuid } from '../../../utils/uuid'
 import { Button } from '../../Button'
 import { Radio } from '../../Form/Radio/Radio'
 import { ModalFooter } from '../../Modal/ModalFooter'
 import { Columns, Table } from '../../Table/Table'
-import { Container } from './UploadData'
+import { Container, CSVAtom } from './UploadData'
 import { useWizardSteps } from './useWizardSteps'
 
+export const FavoriteAtom = atom<string>({
+  key: 'FavoriteAtom',
+  default: '',
+})
+
 export const Favorite = () => {
+  const get = useRecoilValue(CSVAtom)
+  const [getFavorite, setFavorite] = useRecoilState(FavoriteAtom)
   const { onNext, onPrevious } = useWizardSteps({
     previous: 'Player status',
     next: 'Complete',
   })
 
-  const rows: Array<Row> = [
-    {
-      radio: '',
-      player: 'player',
-      number: '#',
-      pos: 'pos',
-      college: 'college',
-      status: 'status',
-    },
-    {
-      radio: '',
-      player: 'player',
-      number: '#',
-      pos: 'pos',
-      college: 'college',
-      status: 'status',
-    },
-    {
-      radio: '',
-      player: 'player',
-      number: '#',
-      pos: 'pos',
-      college: 'college',
-      status: 'status',
-    },
-    {
-      radio: '',
-      player: 'player',
-      number: '#',
-      pos: 'pos',
-      college: 'college',
-      status: 'status',
-    },
-  ]
+  const rows = get.data.data.map((row) => ({
+    ...row,
+    onChange: (value: string) => setFavorite(value),
+    favorite: getFavorite,
+  }))
 
   return (
     <>
       <Container>
         <label htmlFor='table'>Favorite</label>
-
         <Table rows={rows} columns={columns} />
       </Container>
 
@@ -71,46 +49,55 @@ export const Favorite = () => {
 
 const columns: Columns = [
   {
-    key: 'radio',
-    label: ' ',
+    key: 'Player Name',
+    label: 'Player',
     render: (value) => value,
-    renderRow: (_value) => <Radio id={uuid()} />,
+    renderRow: (value, obj) => {
+      return (
+        <Radio
+          id={uuid()}
+          checked={obj.favorite === obj['Player Name']}
+          onChange={() => {
+            if (typeof obj.onChange === 'function') {
+              obj.onChange(value)
+            }
+          }}
+        />
+      )
+    },
   },
+
   {
-    key: 'player',
+    key: 'Player Name',
     label: 'Player',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'number',
+    key: '#',
     label: '#',
     render: (value) => value,
     renderRow: (value) => value,
   },
 
   {
-    key: 'pos',
+    key: 'Pos',
     label: 'pos',
     render: (value) => value,
     renderRow: (value) => value,
   },
+  {
+    key: 'Height',
+    label: 'Height',
+    render: (value) => value,
+    renderRow: (value) => value,
+  },
 
   {
-    key: 'college',
+    key: 'College',
     label: 'College',
     render: (value) => value,
     renderRow: (value) => value,
   },
-
-  {
-    key: 'status',
-    label: 'Status',
-    render: (value) => value,
-
-    renderRow: (value) => value,
-  },
 ]
-
-type Row = { [key: string]: string }
