@@ -8,7 +8,8 @@ export const Container = styled.div`
   align-items: center;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #eee;
+  border: 1px solid ${(props) => props.theme.colors.borderGray};
+  margin-top: 23px;
 
   input {
     position: absolute;
@@ -22,8 +23,8 @@ export const Container = styled.div`
   }
 
   label {
-    background: white;
-    color: dodgerblue;
+    background: ${(props) => props.theme.colors.white};
+    color: ${(props) => props.theme.colors.accent};
     width: 100%;
     height: 100%;
     font-size: 1em;
@@ -36,7 +37,7 @@ export const Container = styled.div`
   input:focus + label,
   label:hover,
   label:focus {
-    background: dodgerblue;
+    background: ${(props) => props.theme.colors.accent};
     color: white;
   }
 `

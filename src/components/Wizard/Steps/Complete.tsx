@@ -1,31 +1,25 @@
 import React from 'react'
-import { useSetRecoilState } from 'recoil'
 
 import { Button } from '../../Button'
-import { Upload } from '../../Form/Upload/Upload'
 import { ModalFooter } from '../../Modal/ModalFooter'
-import { WizardAtom } from '../Wizard'
 import { Container } from './UploadData'
+import { useWizardSteps } from './useWizardSteps'
 
 export const Complete = () => {
-  const set = useSetRecoilState(WizardAtom)
-
-  const handlePrevious = () => {
-    set((prev) => ({
-      ...prev,
-      actual: 'Favorite',
-    }))
-  }
+  const { onPrevious } = useWizardSteps({
+    previous: 'Favorite',
+    next: 'Complete',
+  })
 
   return (
     <>
       <Container>
         <label htmlFor='table'>Complete</label>
-        <Upload />
+        {/* <Upload onError={handleError} onSuccess={handleSuccess} /> */}
       </Container>
 
       <ModalFooter>
-        <Button variant='border' onClick={handlePrevious}>
+        <Button variant='border' onClick={onPrevious}>
           Back
         </Button>
         <Button variant='accent'>Continue</Button>

@@ -2,15 +2,14 @@ import React from 'react'
 
 import { Label } from './styles'
 
-interface TextFieldProps {}
+interface TextFieldProps extends React.HTMLAttributes<HTMLInputElement> {}
 
-export const TextField: React.FC<TextFieldProps> = () => {
+export const TextField: React.FC<TextFieldProps> = (props) => {
   // const ref = useRef<HTMLInputElement | null>(null)
 
   return (
     <Label>
-      Something
-      <input />
+      <input {...props} />
     </Label>
   )
 }

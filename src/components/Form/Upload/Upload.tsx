@@ -1,19 +1,28 @@
-import { useLogger, useParseCSV } from 'hooks'
+import { useParseCSV } from 'hooks'
 
+import { CSVData } from '../../../hooks/useParseCSV'
 import { Container } from './Upload.styled'
 
-export const Upload = () => {
-  const logger = useLogger('Upload')
+interface UploadProps {
+  onSuccess: (data: CSVData) => void
+  onError: (errors: Array<string>) => void
+  label?: string
+}
 
+export const Upload = ({
+  onSuccess,
+  onError,
+  label = 'Select a File',
+}: UploadProps) => {
   const onParseCSV = useParseCSV({
-    onSuccess: (data) => logger.info('data', data),
-    onError: (errors) => logger.info('errors', errors),
+    onSuccess,
+    onError,
   })
 
   return (
     <Container>
       <input id='my-file' type='file' onChange={onParseCSV} />
-      <label htmlFor='my-file'>Select a File</label>
+      <label htmlFor='my-file'>{label}</label>
     </Container>
   )
 }

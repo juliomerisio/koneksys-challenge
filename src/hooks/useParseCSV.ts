@@ -12,7 +12,7 @@ interface FileInfo {
   type: string
 }
 
-type CSVData = {
+export type CSVData = {
   data: Array<CSVRowData>
   fileInfo: FileInfo
 }
