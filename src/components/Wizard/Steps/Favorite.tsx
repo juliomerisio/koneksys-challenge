@@ -4,6 +4,7 @@ import { useWizardSteps } from 'hooks'
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { CSVAtom, FavoritePlayerAtom } from 'store/atoms'
+import styled from 'styled-components'
 
 import { Columns } from '../../Table/Table'
 import { Container } from './UploadData'
@@ -30,7 +31,9 @@ export const Favorite = () => {
     <>
       <Container>
         <label htmlFor='table'>Favorite</label>
-        <Table rows={rows} columns={columns} />
+        <Wrapper>
+          <Table rows={rows} columns={columns} />
+        </Wrapper>
       </Container>
 
       <ModalFooter>
@@ -48,7 +51,7 @@ export const Favorite = () => {
 const columns: Columns = [
   {
     key: 'Player Name',
-    label: 'Player',
+    label: '',
     render: (value) => value,
     renderRow: (value, obj) => {
       return (
@@ -99,3 +102,22 @@ const columns: Columns = [
     renderRow: (value) => value,
   },
 ]
+const Wrapper = styled.div`
+  span {
+    max-width: 100px;
+    white-space: unset;
+    overflow: unset;
+    text-overflow: unset;
+  }
+  > div {
+    span:first-child {
+      max-width: 30px;
+    }
+    span:last-child {
+      max-width: 90px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+`
