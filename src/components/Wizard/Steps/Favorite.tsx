@@ -112,6 +112,7 @@ const Wrapper = styled.div`
   > div {
     span:first-child {
       max-width: 30px;
+      overflow: unset;
     }
     span:last-child {
       max-width: 90px;
