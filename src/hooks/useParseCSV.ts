@@ -27,7 +27,7 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
     const reader: FileReader = new FileReader()
     const { files } = event.target
 
-    const allowedMimeTypes = ['text/csv']
+    const allowedMimeTypes = ['text/csv', 'application/vnd.ms-excel']
 
     if (!files) return
 
