@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { maxWidth, MaxWidthProps } from 'styled-system'
 
-export const Label = styled.label`
+export const Label = styled.label<MaxWidthProps>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -17,8 +18,12 @@ export const Label = styled.label`
     transition: 180ms ease-in-out;
     font-weight: 400;
   }
-  span {
-    margin-bottom: 23px;
-    font-weight: 500;
+
+  svg {
+    position: absolute;
+    right: 22px;
+    top: 14px;
   }
+
+  ${maxWidth}
 `

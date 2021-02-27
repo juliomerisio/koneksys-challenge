@@ -53,6 +53,9 @@ export const UploadData = () => {
             <TextField
               defaultValue={get.data.fileInfo.name || 'File format Invalid'}
               aria-disabled
+              failure
+              disabled
+              maxWidth={323}
             />
             <span>
               <span>
@@ -69,15 +72,17 @@ export const UploadData = () => {
 
         {!hasErrors && hasData && (
           <Section>
+            <Label>Upload Data</Label>
             <TextField
               defaultValue={get.data.fileInfo.name}
               aria-disabled
-              label='Upload Data'
+              success
+              disabled
             />
 
+            <Label>Team Name</Label>
             <TextField
               aria-disabled
-              label='Team Name'
               defaultValue={getTitle}
               onChange={(event) => {
                 const { value } = event.target
@@ -120,6 +125,11 @@ export const UploadData = () => {
     </>
   )
 }
+
+const Label = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+`
 
 export const Container = styled.div`
   height: 100%;
