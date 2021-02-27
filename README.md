@@ -6,6 +6,8 @@
 
 ## :information_source: How to use
 
+📜 [challenge description](https://docs.google.com/document/d/1mOd3CXjM3QsMPyUQaicA3wYdOEGlxMevDzjLaNYCobw/edit)
+
 👁️ [see it on browser](https://koneksys-challenge.vercel.app/)
 
 ```bash
