@@ -1,7 +1,7 @@
+import { Select } from 'components'
+import { uuid } from 'helpers/uuid'
 import React, { ReactElement } from 'react'
 
-import { uuid } from '../../utils/uuid'
-import Select from '../Form/Select/Select'
 import { Columns, Container, Row, RowsContainer } from './Table.styled'
 
 interface TableProps {
@@ -129,55 +129,6 @@ type Row = { [key: string]: any } //eslint-disable-line
 export type Rows = Array<Row>
 
 const rowsExample: Rows = [
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
-  {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
-  },
   {
     player: 'player',
     number: '#',

@@ -10,16 +10,13 @@ export const Item = styled.p`
   [type='radio']:checked + label,
   [type='radio']:not(:checked) + label {
     position: relative;
-    //padding-left: 28px;
     cursor: pointer;
-    //line-height: 20px;
     display: inline-block;
     color: #666;
     svg {
       opacity: 0;
       z-index: 2;
       position: absolute;
-      //top: 4px;
       top: -9px;
       left: 3px;
       color: white;
@@ -47,7 +44,6 @@ export const Item = styled.p`
     height: 18px;
     background: ${(props) => props.theme.colors.accent};
     position: absolute;
-    //top: 1px;
 
     top: -12px;
     left: 1px;

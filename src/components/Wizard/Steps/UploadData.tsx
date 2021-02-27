@@ -1,88 +1,22 @@
+import { Button, Icon, TextField, Upload, ModalFooter } from 'components'
+import { debounce } from 'helpers/debounce'
+import { useWizardSteps } from 'hooks'
+import { CSVData } from 'hooks/useParseCSV'
 import React from 'react'
-import { atom, useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { CSVAtom, TitleAtom, WizardAtom } from 'store/atoms'
 import styled from 'styled-components'
 
-import { CSVData } from '../../../hooks/useParseCSV'
-import { debounce } from '../../../utils/debounce'
-import { Button } from '../../Button'
-import { TextField } from '../../Form/TextField/TextField'
-import { Upload } from '../../Form/Upload/Upload'
-import { Icon } from '../../index'
-import { ModalFooter } from '../../Modal/ModalFooter'
-import { WizardAtom } from '../Wizard'
-import { useWizardSteps } from './useWizardSteps'
-
-export const Container = styled.div`
-  height: 100%;
-  padding: 0 32px;
-  > span {
-    display: flex;
-    align-items: center;
-    margin-top: 18px;
-
-    span {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: red;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-right: 8px;
-    }
-    svg {
-      color: white;
-    }
-  }
-`
-
-const ErrorMessage = styled.p`
-  margin-top: 17px;
-  font-size: 14px;
-  font-weight: 400;
-`
-
-const Section = styled.section`
-  max-width: 323px;
-`
-
-interface CSVAtomType {
-  data: CSVData
-  errors: string[]
-}
-
-export const CSVAtom = atom<CSVAtomType>({
-  key: 'CSVAtom',
-  default: {
-    data: {
-      data: [],
-      fileInfo: {
-        name: '',
-        size: 0,
-        type: '',
-      },
-    },
-    errors: [],
-  },
-})
-
-export const TitleAtom = atom<string>({
-  key: 'TitleAtom',
-  default: '',
-})
-
 export const UploadData = () => {
+  const [get, set] = useRecoilState(CSVAtom)
+  const [getTitle, setTitle] = useRecoilState(TitleAtom)
+
+  const setWizard = useSetRecoilState(WizardAtom)
+
   const { onNext } = useWizardSteps({
     previous: 'Upload Data',
     next: 'Player status',
   })
-
-  const [get, set] = useRecoilState(CSVAtom)
-
-  const [getTitle, setTitle] = useRecoilState(TitleAtom)
-
-  const setWizard = useSetRecoilState(WizardAtom)
 
   const handleError = (errors: string[]) => {
     set((prev) => ({ ...prev, errors }))
@@ -186,3 +120,38 @@ export const UploadData = () => {
     </>
   )
 }
+
+export const Container = styled.div`
+  height: 100%;
+  padding: 0 32px;
+  > span {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+
+    span {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 8px;
+    }
+    svg {
+      color: white;
+    }
+  }
+`
+
+const ErrorMessage = styled.p`
+  margin-top: 17px;
+  font-size: 14px;
+  font-weight: 400;
+`
+
+const Section = styled.section`
+  max-width: 323px;
+`

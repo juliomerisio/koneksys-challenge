@@ -1,31 +1,28 @@
+import { Button, Radio, ModalFooter, Table } from 'components'
+import { uuid } from 'helpers/uuid'
+import { useWizardSteps } from 'hooks'
 import React from 'react'
-import { atom, useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { CSVAtom, FavoritePlayerAtom } from 'store/atoms'
 
-import { uuid } from '../../../utils/uuid'
-import { Button } from '../../Button'
-import { Radio } from '../../Form/Radio/Radio'
-import { ModalFooter } from '../../Modal/ModalFooter'
-import { Columns, Table } from '../../Table/Table'
-import { Container, CSVAtom } from './UploadData'
-import { useWizardSteps } from './useWizardSteps'
-
-export const FavoriteAtom = atom<string>({
-  key: 'FavoriteAtom',
-  default: '',
-})
+import { Columns } from '../../Table/Table'
+import { Container } from './UploadData'
 
 export const Favorite = () => {
-  const get = useRecoilValue(CSVAtom)
-  const [getFavorite, setFavorite] = useRecoilState(FavoriteAtom)
+  const getCSVData = useRecoilValue(CSVAtom)
+  const [getFavoritePlayer, setFavoritePlayer] = useRecoilState(
+    FavoritePlayerAtom
+  )
+
   const { onNext, onPrevious } = useWizardSteps({
     previous: 'Player status',
     next: 'Complete',
   })
 
-  const rows = get.data.data.map((row) => ({
+  const rows = getCSVData.data.data.map((row) => ({
     ...row,
-    onChange: (value: string) => setFavorite(value),
-    favorite: getFavorite,
+    onChange: (value: string) => setFavoritePlayer(value),
+    favorite: getFavoritePlayer,
   }))
 
   return (
@@ -39,7 +36,7 @@ export const Favorite = () => {
         <Button variant='border' onClick={onPrevious}>
           Back
         </Button>
-        <Button variant='accent' onClick={onNext} disabled={!getFavorite}>
+        <Button variant='accent' onClick={onNext} disabled={!getFavoritePlayer}>
           Continue
         </Button>
       </ModalFooter>

@@ -1,6 +1,6 @@
 import { useParseCSV } from 'hooks'
+import { CSVData } from 'hooks/useParseCSV'
 
-import { CSVData } from '../../../hooks/useParseCSV'
 import { Container } from './Upload.styled'
 
 interface UploadProps {

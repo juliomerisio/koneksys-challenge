@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-constructor */
-import { getTimeString } from '../utils/getTimeString'
+import { getTimeString } from '../helpers/getTimeString'
 
 export default class DebugLogger {
   private enabled: boolean = process.env.NODE_ENV !== 'production'

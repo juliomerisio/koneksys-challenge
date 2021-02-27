@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useRef } from 'react'
 
-import { FullScreen } from './styles'
+import { FullScreen } from './Modal.styled'
 
 interface ModalProps {
   isOpen: boolean

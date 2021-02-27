@@ -1,6 +1,6 @@
 import { useSetRecoilState } from 'recoil'
 
-import { WizardAtom } from '../Wizard'
+import { WizardAtom } from '../store/atoms'
 
 interface WizardStepsProps {
   next: string

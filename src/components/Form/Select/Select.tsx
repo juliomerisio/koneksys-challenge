@@ -27,7 +27,7 @@ interface Props {
   onChange: (selectorName: string, item: SelectData) => void
 }
 
-const SelectField: React.FC<Props> = ({
+export const Select: React.FC<Props> = ({
   selectorName,
   data = [],
   currentData = {
@@ -157,5 +157,3 @@ const SelectField: React.FC<Props> = ({
     </Container>
   )
 }
-
-export default SelectField

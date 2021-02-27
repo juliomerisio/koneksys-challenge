@@ -1,19 +1,18 @@
+import { Button, ModalFooter, Table } from 'components'
+import { replaceItemAtIndex } from 'helpers/replaceItemAtIndex'
+import { useLogger, useWizardSteps } from 'hooks'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { CSVAtom } from 'store/atoms'
 
-import { useLogger } from '../../../hooks'
-import { Button } from '../../Button'
 import { SelectData } from '../../Form/Select/Select'
-import { ModalFooter } from '../../Modal/ModalFooter'
-import { Table } from '../../Table/Table'
-import { Container, CSVAtom } from './UploadData'
-import { useWizardSteps } from './useWizardSteps'
+import { Container } from './UploadData'
 
 export const PlayerStatus = () => {
   const logger = useLogger('Player Status')
-  const [get, set] = useRecoilState(CSVAtom)
+  const [getCSVData, setCSVData] = useRecoilState(CSVAtom)
 
-  logger.info('Data', get.data)
+  logger.info('Data', getCSVData.data)
 
   const { onNext, onPrevious } = useWizardSteps({
     previous: 'Upload Data',
@@ -21,11 +20,11 @@ export const PlayerStatus = () => {
   })
 
   const handleChangePlayerStatus = ({ value, label }: SelectData) => {
-    const findPlayerIndex = get.data.data.findIndex(
+    const findPlayerIndex = getCSVData.data.data.findIndex(
       (player) => player['Player Name'] === value
     )
 
-    set((prev) => {
+    setCSVData((prev) => {
       const update = replaceItemAtIndex(prev.data.data, findPlayerIndex, {
         ...prev.data.data[findPlayerIndex],
         Status: label,
@@ -41,7 +40,7 @@ export const PlayerStatus = () => {
     })
   }
 
-  const rows = get.data.data.map((row) => ({
+  const rows = getCSVData.data.data.map((row) => ({
     ...row,
     onChange: handleChangePlayerStatus,
   }))
@@ -63,12 +62,4 @@ export const PlayerStatus = () => {
       </ModalFooter>
     </>
   )
-}
-
-function replaceItemAtIndex(
-  arr: Record<string, string>[],
-  index: number,
-  newValue: Record<string, string>
-) {
-  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)]
 }

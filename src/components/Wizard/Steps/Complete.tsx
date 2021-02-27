@@ -1,16 +1,85 @@
+import { Button, ModalFooter } from 'components'
+import { useLogger, useResetValues, useWizardSteps } from 'hooks'
 import React from 'react'
-import { atom, selector, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { CSVAtom, DashboardDataAtom, ModalAtom } from 'store/atoms'
+import { selectorCSV } from 'store/selectors'
 import styled from 'styled-components'
 
-import { useLogger } from '../../../hooks'
-import { CSVData } from '../../../hooks/useParseCSV'
-import { ModalAtom } from '../../../pages/Dashboard'
-import { useResetValues } from '../../../pages/useResetValues'
-import { Button } from '../../Button'
-import { ModalFooter } from '../../Modal/ModalFooter'
-import { FavoriteAtom } from './Favorite'
-import { Container, CSVAtom, TitleAtom } from './UploadData'
-import { useWizardSteps } from './useWizardSteps'
+import { Container } from './UploadData'
+
+export const Complete = () => {
+  const logger = useLogger('Complete')
+  const reset = useResetValues()
+
+  const getCSVAtom = useRecoilValue(CSVAtom)
+  const getDashboardData = useRecoilValue(selectorCSV)
+
+  const setIsModalOpen = useSetRecoilState(ModalAtom)
+  const setDashboardData = useSetRecoilState(DashboardDataAtom)
+
+  const { onPrevious } = useWizardSteps({
+    previous: 'Favorite',
+    next: 'Complete',
+  })
+
+  const handleFinish = () => {
+    setDashboardData(getCSVAtom.data.data)
+    setIsModalOpen(false)
+    reset()
+  }
+
+  logger.info('Data', getDashboardData)
+
+  return (
+    <>
+      <Container>
+        <label htmlFor='table'>Summary</label>
+
+        <Review>
+          <div>
+            <span>
+              <small>Data</small> <strong>{getDashboardData.fileName}</strong>
+            </span>
+            <span>
+              <small>Team</small> <strong>{getDashboardData.name}</strong>
+            </span>
+            <span>
+              <small>Favorite Player</small>{' '}
+              <strong>{getDashboardData.favorite}</strong>
+            </span>
+          </div>
+
+          <div>
+            <span>
+              <small>Active</small> <strong>{getDashboardData.active}</strong>
+            </span>
+            <span>
+              <small>Injured</small> <strong>{getDashboardData.injured}</strong>
+            </span>
+            <span>
+              <small>Practice Squad</small>{' '}
+              <strong>{getDashboardData.practice}</strong>
+            </span>
+            <span>
+              <small>Suspended</small>{' '}
+              <strong>{getDashboardData.suspended}</strong>
+            </span>
+          </div>
+        </Review>
+      </Container>
+
+      <ModalFooter>
+        <Button variant='border' onClick={onPrevious}>
+          Back
+        </Button>
+        <Button variant='accent' onClick={handleFinish}>
+          Continue
+        </Button>
+      </ModalFooter>
+    </>
+  )
+}
 
 const Review = styled.div`
   display: flex;
@@ -37,114 +106,3 @@ const Review = styled.div`
     }
   }
 `
-
-const selectorCSV = selector({
-  key: 'selectorCSV',
-  get: ({ get }) => {
-    const csvJSON = get(CSVAtom)
-    const name = get(TitleAtom)
-    const favorite = get(FavoriteAtom)
-
-    const active = csvJSON.data.data.filter(
-      (player) => player?.Status === 'Active'
-    )?.length
-
-    const injured = csvJSON.data.data.filter(
-      (player) => player?.Status === 'Injured'
-    )?.length
-
-    const practice = csvJSON.data.data.filter(
-      (player) => player?.Status === 'Practice'
-    )?.length
-
-    const suspended = csvJSON.data.data.filter(
-      (player) => player?.Status === 'Suspended'
-    )?.length
-
-    return {
-      suspended,
-      practice,
-      injured,
-      active,
-      name,
-      fileName: csvJSON.data.fileInfo.name,
-      favorite,
-    }
-  },
-})
-
-export const DashboardDataAtom = atom<CSVData['data']>({
-  key: 'DashboardDataAtom',
-  default: [],
-})
-
-export const Complete = () => {
-  const logger = useLogger('Complete')
-  const get = useRecoilValue(selectorCSV)
-  const reset = useResetValues()
-
-  const setModalIsOpen = useSetRecoilState(ModalAtom)
-
-  const getCSVAtom = useRecoilValue(CSVAtom)
-
-  const setDashboardData = useSetRecoilState(DashboardDataAtom)
-
-  const { onPrevious } = useWizardSteps({
-    previous: 'Favorite',
-    next: 'Complete',
-  })
-
-  const handleFinish = () => {
-    setDashboardData(getCSVAtom.data.data)
-    setModalIsOpen(false)
-    reset()
-  }
-
-  logger.info('Data', get)
-
-  return (
-    <>
-      <Container>
-        <label htmlFor='table'>Summary</label>
-
-        <Review>
-          <div>
-            <span>
-              <small>Data</small> <strong>{get.fileName}</strong>
-            </span>
-            <span>
-              <small>Team</small> <strong>{get.name}</strong>
-            </span>
-            <span>
-              <small>Favorite Player</small> <strong>{get.favorite}</strong>
-            </span>
-          </div>
-
-          <div>
-            <span>
-              <small>Active</small> <strong>{get.active}</strong>
-            </span>
-            <span>
-              <small>Injured</small> <strong>{get.injured}</strong>
-            </span>
-            <span>
-              <small>Practice Squad</small> <strong>{get.practice}</strong>
-            </span>
-            <span>
-              <small>Suspended</small> <strong>{get.suspended}</strong>
-            </span>
-          </div>
-        </Review>
-      </Container>
-
-      <ModalFooter>
-        <Button variant='border' onClick={onPrevious}>
-          Back
-        </Button>
-        <Button variant='accent' onClick={handleFinish}>
-          Continue
-        </Button>
-      </ModalFooter>
-    </>
-  )
-}

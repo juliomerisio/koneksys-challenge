@@ -2,7 +2,7 @@ import * as PapaParse from 'papaparse'
 import { head, mergeAll, tail } from 'ramda'
 import React from 'react'
 
-import { nonEmpty } from '../utils/nonEmpty'
+import { nonEmpty } from '../helpers/nonEmpty'
 
 type CSVRowData = Record<string, string>
 

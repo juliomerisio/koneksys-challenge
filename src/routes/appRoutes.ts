@@ -1,7 +1,7 @@
 import { mergeRight, map } from 'ramda'
 
 import { DASHBOARD_PAGE_PATH } from '../constants'
-import { Dashboard } from '../pages/Dashboard'
+import { Dashboard } from '../pages/Dashboard/Dashboard'
 
 const defaultRouteConfig = {
   isPrivate: false,

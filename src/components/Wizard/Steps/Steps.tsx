@@ -1,16 +1,16 @@
 import { ReactElement } from 'react'
 import { useRecoilValue } from 'recoil'
+import { WizardAtom } from 'store/atoms'
 
-import { WizardAtom } from '../Wizard'
 import { Complete } from './Complete'
 import { Favorite } from './Favorite'
 import { PlayerStatus } from './PlayerStatus'
 import { UploadData } from './UploadData'
 
 export const Steps = () => {
-  const get = useRecoilValue(WizardAtom)
+  const getWizard = useRecoilValue(WizardAtom)
 
-  return <>{steps[get.actual]}</>
+  return <>{steps[getWizard.actual]}</>
 }
 
 const steps: { [key: string]: ReactElement } = {
