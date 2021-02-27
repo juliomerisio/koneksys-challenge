@@ -1,15 +1,24 @@
 import styled from 'styled-components'
 
-export const Row = styled.div`
+export const Row = styled.div<{ isActive: boolean }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
   margin-bottom: 16px;
-  border: 1px solid #eee;
+
   font-size: 12px;
   border-radius: 8px;
+
+  border: ${(props) =>
+    props.isActive
+      ? `1px solid ${props.theme.colors.favorite}`
+      : '1px solid #eee'};
+
+  background: ${(props) =>
+    props.isActive ? props.theme.colors.lightGray : 'unset'};
+
   span {
     padding: 0 10px;
     max-width: 80px;
@@ -58,9 +67,12 @@ export const Container = styled.div`
   flex-direction: column;
   margin-top: 8px;
 `
-export const RowsContainer = styled.div<{ isDashboard: boolean }>`
+export const RowsContainer = styled.div<{
+  isDashboard: boolean
+}>`
   width: 100%;
   max-height: ${(props) => (props.isDashboard ? '540px' : '183px')};
+
   overflow-y: scroll;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,9 @@
+import { useLogger } from 'hooks'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
+import { DashboardDataAtom, FavoritePlayerAtom } from 'store/atoms'
 import styled from 'styled-components'
 
-import { useLogger } from '../../hooks'
-import { DashboardDataAtom } from '../../store/atoms'
 import { Columns, Table } from './Table'
 
 export const DashboardTable = () => {
@@ -11,12 +11,19 @@ export const DashboardTable = () => {
 
   const get = useRecoilValue(DashboardDataAtom)
 
+  const getFavoritePlayer = useRecoilValue(FavoritePlayerAtom)
+
   logger.info('Data', get)
+
+  const rows = get.map((row) => ({
+    ...row,
+    isActive: row?.['Player Name'] === getFavoritePlayer,
+  }))
 
   return (
     <Wrapper>
       {get.length > 0 ? (
-        <Table isDashboard rows={get} columns={columns} />
+        <Table isDashboard rows={rows} columns={columns} />
       ) : null}
     </Wrapper>
   )

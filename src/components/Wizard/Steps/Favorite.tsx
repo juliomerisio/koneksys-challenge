@@ -23,6 +23,7 @@ export const Favorite = () => {
     ...row,
     onChange: (value: string) => setFavoritePlayer(value),
     favorite: getFavoritePlayer,
+    isActive: getFavoritePlayer === row?.['Player Name'],
   }))
 
   return (

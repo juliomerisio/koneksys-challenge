@@ -24,7 +24,7 @@ export const Table: React.FC<TableProps> = ({
       </Columns>
       <RowsContainer isDashboard={isDashboard}>
         {rows?.map((row) => (
-          <Row key={row?.key}>
+          <Row key={row?.key} isActive={row?.isActive}>
             {columns?.map((column, columnIndex) => {
               const index = columns[columnIndex].key
 
