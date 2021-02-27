@@ -116,7 +116,7 @@ export const UploadData = () => {
         ) : (
           <Button
             onClick={onNext}
-            disabled={(hasErrors && !hasData) || !hasTitle}
+            disabled={(hasErrors && !hasData) || !hasData || !hasTitle}
           >
             Continue
           </Button>

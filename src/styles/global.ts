@@ -38,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px; /* 1 */
     -moz-osx-font-smoothing: grayscale; /* 2 */
     -webkit-font-smoothing: antialiased; /* 2 */
-    background-color: #F7FAFC;
     //overflow-y: scroll;
   }
   
