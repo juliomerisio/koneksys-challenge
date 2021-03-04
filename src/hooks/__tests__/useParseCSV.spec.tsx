@@ -9,15 +9,11 @@ test('should be able to upload a file', async () => {
 
   const onSuccess = jest.fn()
 
-  const { getByText, getByTestId } = render(
+  render(
     <ThemeProvider theme={theme}>
       <Upload onError={onError} onSuccess={onSuccess} />
     </ThemeProvider>
   )
-
-  // fireEvent.click(getByText('something'))
-
-  // await actWait()
 
   const input = await screen.getByLabelText(/select a file/i)
 
