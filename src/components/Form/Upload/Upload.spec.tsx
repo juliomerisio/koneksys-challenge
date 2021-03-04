@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 
-import { Upload } from '../../components'
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
+import { Upload } from '../../index'
 
 test('should be able to upload a file', async () => {
   const onError = jest.fn()
