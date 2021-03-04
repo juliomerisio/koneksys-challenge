@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from '@testing-library/react-hooks'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
@@ -36,25 +37,25 @@ const setup = () => {
   return { closeButton }
 }
 
-test('should close it when clicked on close button', () => {
+test('should close modal when clicked on close button', () => {
   const { closeButton } = setup()
 
   userEvent.click(closeButton)
 
-  expect(screen.queryByText(/my team importer/i)).not.toBeNull()
+  expect(screen.queryByText(/my team importer/i)).not.toBeVisible()
 })
 
-// it('should close modal pressing escape', function () {
-//   setup()
-//
-//   act(() => {
-//     fireEvent.keyDown(screen.getByText(/my team importer/i), {
-//       key: 'Escape',
-//       code: 'Escape',
-//       keyCode: 27,
-//       charCode: 27,
-//     })
-//   })
-//
-//   expect(screen.getByRole('heading', { name: /my team importer/i }))
-// })
+it('should close modal pressing escape', function () {
+  setup()
+
+  act(() => {
+    fireEvent.keyUp(document, {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: 27,
+      charCode: 27,
+    })
+  })
+
+  expect(screen.queryByText(/my team importer/i)).not.toBeVisible()
+})
