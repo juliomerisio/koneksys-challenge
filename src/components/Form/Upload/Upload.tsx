@@ -21,7 +21,12 @@ export const Upload = ({
 
   return (
     <Container>
-      <input id='my-file' type='file' onChange={onParseCSV} />
+      <input
+        id='my-file'
+        type='file'
+        onChange={onParseCSV}
+        data-cy='file-input'
+      />
       <label htmlFor='my-file'>{label}</label>
     </Container>
   )

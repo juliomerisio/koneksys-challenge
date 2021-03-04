@@ -56,6 +56,7 @@ const columns: Columns = [
     renderRow: (value, obj) => {
       return (
         <Radio
+          aria-label={`favorite-${obj['Player Name']}`}
           id={uuid()}
           checked={obj.favorite === obj['Player Name']}
           onChange={() => {

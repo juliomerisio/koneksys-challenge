@@ -3,10 +3,6 @@ describe('Dashboard', () => {
     cy.visit('/')
   })
 
-  // it('verifies the about setting change language default is English', () => {
-  //   cy.findByRole('button', { name: /change language/i }).should('be.visible')
-  // })
-
   it('click open and close modal', () => {
     cy.findByTestId('modal').should('not.visible')
 
@@ -19,7 +15,7 @@ describe('Dashboard', () => {
     cy.findByTestId('modal').should('not.visible')
   })
 
-  it('click upload file', () => {
+  it('happy path', () => {
     cy.findByRole('button', { name: /import team/i }).click()
 
     cy.findByRole('button', { name: /continue/i }).should('be.disabled')
@@ -57,39 +53,15 @@ describe('Dashboard', () => {
     cy.findByTestId('table').should('be.visible')
   })
 
-  // it('verifies the about setting change language to Español', () => {
-  //   cy.findByRole('button', { name: /change language/i }).click()
-  //
-  //   cy.findByRole('button', {
-  //     name: /español/i,
-  //   }).click()
-  //
-  //   cy.findByRole('button', { name: /cambiar idioma/i }).click()
-  // })
-  // it('verifies the about setting change language to Română', () => {
-  //   cy.findByRole('button', { name: /change language/i }).click()
-  //
-  //   cy.findByRole('button', {
-  //     name: /română/i,
-  //   }).click()
-  //
-  //   cy.findByRole('button', { name: /schimba limba/i }).click()
-  // })
-  //
-  // it('verifies theme change to light', () => {
-  //   cy.findByRole('button', { name: /change theme/i }).click()
-  //
-  //   cy.findByRole('button', { name: /light/i }).click()
-  //   cy.window().then((window) => {
-  //     expect(window.localStorage.getItem('atom:settings')).contains('light')
-  //   })
-  // })
-  // it('verifies theme change to black', () => {
-  //   cy.findByRole('button', { name: /change theme/i }).click()
-  //
-  //   cy.findByRole('button', { name: /black/i }).click()
-  //   cy.window().then((window) => {
-  //     expect(window.localStorage.getItem('atom:settings')).contains('black')
-  //   })
-  // })
+  it.only('sad path', () => {
+    cy.findByRole('button', { name: /Import team/i }).click()
+
+    cy.findByRole('button', { name: /continue/i }).should('be.disabled')
+
+    cy.get('[data-cy="file-input"]').attachFile('missing-field.csv')
+
+    cy.contains('Missing Value').should('be.visible')
+
+    cy.findByLabelText(/Re-upload file/i)
+  })
 })

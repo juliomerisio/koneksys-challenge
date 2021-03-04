@@ -7,6 +7,7 @@ import { Select } from './Select'
 const OPTIONS = [
   { label: 'Brazil', id: 'Brazil', value: 'Brazil' },
   { label: 'Canada', id: 'Canada', value: 'Canada' },
+  { label: 'Africa', id: 'Africa', value: 'Africa' },
 ]
 
 test('should render select with default selected', async function () {
@@ -34,7 +35,7 @@ test('should render select with default selected', async function () {
 
   const items = await getAllByRole('listitem')
 
-  expect(items.length).toBe(2)
+  expect(items.length).toBe(3)
 
   fireEvent.click(screen.getByRole('button', { name: /canada/i }))
 

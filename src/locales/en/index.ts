@@ -13,14 +13,14 @@ const files = context
   .reduce((translations, fileName) => {
     const fileTranslations = context(fileName)
 
-    const [language] = fileName
+    const [workspace] = fileName
       .replace('./', '')
       .replace(process.env.NODE_ENV === `production` ? '.js' : '.ts', '')
       .split('/')
 
     return {
       ...translations,
-      [language]: fileTranslations[language],
+      [workspace]: fileTranslations[workspace],
     }
   }, {})
 

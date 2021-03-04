@@ -10,7 +10,7 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({ onClose }) => {
   return (
     <StyledHeader>
       <h2>My Team Importer</h2>
-      <Button variant='icon' onClick={onClose}>
+      <Button variant='icon' onClick={onClose} data-testid='close-modal'>
         <Icon icon='FaTimes' size={18} />
       </Button>
     </StyledHeader>

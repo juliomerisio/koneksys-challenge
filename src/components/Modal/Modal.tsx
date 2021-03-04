@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   }, [handleKeyUp, handleOutsideClick, isOpen])
 
   return (
-    <FullScreen isOpen={isOpen ? 1 : 0}>
+    <FullScreen isOpen={isOpen ? 1 : 0} data-testid='modal'>
       <div ref={modal}>{children}</div>
     </FullScreen>
   )

@@ -83,6 +83,7 @@ export const UploadData = () => {
             <Label>Team Name</Label>
             <TextField
               aria-disabled
+              aria-label='team name'
               defaultValue={getTitle}
               onChange={(event) => {
                 const { value } = event.target

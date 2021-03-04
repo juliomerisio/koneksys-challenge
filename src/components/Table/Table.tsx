@@ -16,7 +16,7 @@ export const Table: React.FC<TableProps> = ({
   isDashboard = false,
 }) => {
   return (
-    <Container>
+    <Container data-testid='table'>
       <Columns data-testid='columns'>
         {columns.map((column) => (
           <span data-testid='columnItem' key={column.key}>
