@@ -17,14 +17,16 @@ export const Table: React.FC<TableProps> = ({
 }) => {
   return (
     <Container>
-      <Columns>
+      <Columns data-testid='columns'>
         {columns.map((column) => (
-          <span key={column.key}>{column.render(column.label, column)}</span>
+          <span data-testid='columnItem' key={column.key}>
+            {column.render(column.label, column)}
+          </span>
         ))}
       </Columns>
       <RowsContainer isDashboard={isDashboard}>
         {rows?.map((row) => (
-          <Row key={row?.key} isActive={row?.isActive}>
+          <Row key={row?.key + uuid()} isActive={row?.isActive}>
             {columns?.map((column, columnIndex) => {
               const index = columns[columnIndex].key
 
@@ -130,17 +132,17 @@ export type Rows = Array<Row>
 
 const rowsExample: Rows = [
   {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
+    Player: 'player',
+    Number: '#',
+    Pos: 'pos',
+    College: 'college',
+    Status: 'status',
   },
   {
-    player: 'player',
-    number: '#',
-    pos: 'pos',
-    college: 'college',
-    status: 'status',
+    Player: 'player',
+    Number: '#',
+    Pos: 'pos',
+    College: 'college',
+    Status: 'status',
   },
 ]
