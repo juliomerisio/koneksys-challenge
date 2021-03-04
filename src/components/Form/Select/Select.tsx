@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { FiChevronDown, FiSearch } from 'react-icons/fi'
 import Scrollbar from 'react-smooth-scrollbar'
-import { CircleSpinner } from 'react-spinners-kit'
 
 import {
   Container,
-  Loader,
   Current,
   List,
   Button,
@@ -90,40 +88,35 @@ export const Select: React.FC<Props> = ({
         onClick={handleClickSelect}
         disabled={data.length === 0}
       >
-        {data.length === 0 ? (
-          <Loader>
-            <CircleSpinner size={20} />
-          </Loader>
-        ) : (
-          <>
-            {isOpen ? (
-              <Search>
-                <input
-                  type='text'
-                  placeholder='Placeholder'
-                  onChange={(event) => handleInputFilter(event.target.value)}
-                />
-                <FiSearch />
-              </Search>
-            ) : (
-              <Selected>
-                {!current && selectPlaceholder}
-                <span>{current?.label}</span>
+        <>
+          {isOpen ? (
+            <Search>
+              <input
+                type='text'
+                placeholder='Placeholder'
+                onChange={(event) => handleInputFilter(event.target.value)}
+              />
+              <FiSearch />
+            </Search>
+          ) : (
+            <Selected>
+              {!current && selectPlaceholder}
+              <span data-testid='value'>{current?.label}</span>
 
-                <FiChevronDown size={18} />
-              </Selected>
-            )}
-          </>
-        )}
+              <FiChevronDown size={18} />
+            </Selected>
+          )}
+        </>
       </Current>
 
-      <List isOpen={isOpen}>
+      <List isOpen={isOpen} aria-label='custom-select'>
         <Scrollbar alwaysShowTracks continuousScrolling={false}>
           {!isSearch ? (
             <>
               {data.map((item: SelectData) => (
                 <li key={item.id}>
                   <Button
+                    data-testid={`option-${item.id}`}
                     onClick={() => {
                       setCurrent(item)
                       onChange(selectorName, item)
@@ -140,6 +133,7 @@ export const Select: React.FC<Props> = ({
               {search.map((item: SelectData) => (
                 <li key={item.id}>
                   <Button
+                    data-testid={`option-${item.id}`}
                     onClick={() => {
                       onChange(selectorName, item)
                       setIsOpen(false)

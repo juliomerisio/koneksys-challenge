@@ -1,4 +1,4 @@
-export * from './Button'
+export * from './Button/Button'
 
 export { default as Icon } from './Icon/Icon'
 
