@@ -9,7 +9,7 @@ const OPTIONS = [
   { label: 'Canada', id: 'Canada', value: 'Canada' },
 ]
 
-it('should render select with default selected', async function () {
+test('should render select with default selected', async function () {
   const onChange = jest.fn()
 
   render(
@@ -26,7 +26,6 @@ it('should render select with default selected', async function () {
   expect(screen.getByTestId('value')).toHaveTextContent(OPTIONS[0].value)
 
   fireEvent.click(screen.getByRole('button', { name: /brazil/i }))
-  screen.logTestingPlaygroundURL()
 
   expect(screen.getByRole('textbox')).toBeInTheDocument()
 
