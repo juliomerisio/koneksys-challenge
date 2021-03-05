@@ -53,7 +53,7 @@ describe('Dashboard', () => {
     cy.findByTestId('table').should('be.visible')
   })
 
-  it.only('sad path', () => {
+  it('sad path', () => {
     cy.findByRole('button', { name: /Import team/i }).click()
 
     cy.findByRole('button', { name: /continue/i }).should('be.disabled')

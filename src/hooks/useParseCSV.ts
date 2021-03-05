@@ -1,5 +1,5 @@
 import * as PapaParse from 'papaparse'
-import { head, mergeAll, tail } from 'ramda'
+import { mergeAll } from 'ramda'
 import React from 'react'
 
 import { nonEmpty } from '../helpers/nonEmpty'
@@ -54,8 +54,9 @@ export const useParseCSV = ({ onSuccess, onError }: UseParseCSVProps) => {
       })
 
       if (Array.isArray(csvData?.data)) {
-        const columns = head<Array<string>>(csvData?.data)
-        const rows = tail(csvData?.data)
+        const [columns, ...rows] = csvData?.data
+        // const columns = head<Array<string>>(csvData?.data)
+        // const rows = tail(csvData?.data)
 
         if (!columns) return
 
